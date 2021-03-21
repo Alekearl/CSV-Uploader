@@ -10,10 +10,9 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,15 +33,17 @@ public class UploadController {
     }
 
     @PostMapping("/upload/csv-file")
-    public void uploadCsvFile(@RequestParam("file") MultipartFile file) {
+    public void uploadFile(@RequestParam("data") MultipartFile file) {
 
-        try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+        try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream(),
+                StandardCharsets.UTF_8))) {
             CsvToBean<DataFile> csvToBean = new CsvToBeanBuilder<DataFile>(reader)
+                    .withSkipLines(1)
+                    .withSeparator(';')
                     .withType(DataFile.class)
-                    .withIgnoreLeadingWhiteSpace(true)
                     .build();
-            List<DataFile> parse = csvToBean.parse();
-            for (DataFile dataFile : parse) {
+            List<DataFile> dataFiles = csvToBean.parse();
+            for (DataFile dataFile : dataFiles) {
                 InformationFromCsv informationFromCsv = new InformationFromCsv();
                 informationFromCsv.setEmployee(dataFile.getEmployee());
                 informationFromCsv.setDepartment(dataFile.getDepartment());

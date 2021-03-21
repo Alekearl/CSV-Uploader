@@ -1,18 +1,14 @@
 package com.http.program.uploadcsv.model;
 
-import com.opencsv.bean.CsvBindByName;
-import javax.persistence.Column;
+import com.opencsv.bean.CsvBindByPosition;
 import lombok.Data;
 
 @Data
 public class DataFile {
-    @CsvBindByName
-    @Column(name = "Employee")
+    @CsvBindByPosition(position = 0)
     private String employee;
-    @CsvBindByName
-    @Column(name = "Department")
+    @CsvBindByPosition(position = 1)
     private String department;
-    @CsvBindByName
-    @Column(name = "Salary")
+    @CsvBindByPosition(position = 2)
     private Double salary;
 }
