@@ -22,7 +22,12 @@ public class InformationServiceImpl implements InformationService {
     }
 
     @Override
-    public List<Information> getAllWithHighestDepartmentSalary() {
-        return repository.getAllEmployeeWithHighestSalaryInDepartment();
+    public List<Information> getAllWithHighestDepartmentSalary(String department) {
+        return repository.getAllEmployeeWithHighestSalaryInDepartment(department);
+    }
+
+    @Override
+    public List<Information> getAllDepartmentsContainEmployeeSortedBySalaryDesc() {
+        return repository.findAllByDepartmentAndEmployeeContainsOrderBySalaryDesc();
     }
 }

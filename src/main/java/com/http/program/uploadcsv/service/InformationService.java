@@ -6,5 +6,7 @@ import java.util.List;
 public interface InformationService {
     List<Information> getAllEmployees();
 
-    List<Information> getAllWithHighestDepartmentSalary();
+    List<Information> getAllWithHighestDepartmentSalary(String department);
+
+    List<Information> getAllDepartmentsContainEmployeeSortedBySalaryDesc();
 }

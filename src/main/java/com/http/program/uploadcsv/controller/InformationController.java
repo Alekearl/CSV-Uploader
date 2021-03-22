@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 @RequestMapping("/information")
 public class InformationController {
@@ -24,7 +26,12 @@ public class InformationController {
     }
 
     @GetMapping("/all-departments/highest-salary")
-    public List<Information> getHighestSalaryInDepartments() {
-        return informationService.getAllWithHighestDepartmentSalary();
+    public List<Information> getHighestSalaryInDepartments(@PathParam("department") String department) {
+        return informationService.getAllWithHighestDepartmentSalary(department);
+    }
+
+    @GetMapping("/all-departments/with-employees/order-desc")
+    public List<Information> getAllDepartmentsWithEmployeeSortBySalaryDesc() {
+        return informationService.getAllDepartmentsContainEmployeeSortedBySalaryDesc();
     }
 }
