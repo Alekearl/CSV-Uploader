@@ -1,7 +1,10 @@
 package com.http.program.uploadcsv.service;
 
 import com.http.program.uploadcsv.model.Information;
+import java.util.List;
 
 public interface InformationService {
-    void save(Information information);
+    List<Information> getAllEmployees();
+
+    List<Information> getAllWithHighestDepartmentSalary();
 }
